@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Activity Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: rgb(155, 198, 212);
+        }
+
+        #activity-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            border-width: 3cqh;
+            background-blend-mode: color-burn;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-style:calc(1);
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #815e5e;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(187, 151, 104);
+        }
+
+        .value-column {
+            width: 1000px; /* Adjust the width as needed */
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+
+<div id="activity-container">
+    <h1>Random Activity Generator</h1>
+    <table id="activity-table"></table>
+    <button onclick="getRandomActivity()">Get Random Activity</button>
+</div>
+
+<script>
+    function getRandomActivity() {
+        fetch('https://www.boredapi.com/api/activity')
+            .then(response => response.json())
+            .then(data => {
+                // Display the retrieved data in a table
+                const activityTable = document.getElementById('activity-table');
+                activityTable.innerHTML = `
+                    <tr><th>Parameter</th><th class="value-column">Value</th></tr>
+                    <tr><td>Activity</td><td class="value-column">${data.activity}</td></tr>
+                    <tr><td>Type</td><td class="value-column">${data.type}</td></tr>
+                    <tr><td>Participants</td><td class="value-column">${data.participants}</td></tr>
+                    <tr><td>Price</td><td class="value-column">${data.price}</td></tr>
+                    <tr><td>Link</td><td class="value-column">${data.link}</td></tr>
+                    <tr><td>Accessibility</td><td class="value-column">${data.accessibility}</td></tr>
+                `;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+
+</body>
+</html>

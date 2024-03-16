@@ -1,0 +1,44 @@
+<html>
+    
+<head>
+    <title>
+        Call API and render Data</title>
+    <script>
+        async function callAPI() {
+            let result = await fetch('https://date.nager.at/api/v2/publicholidays/2020/US');
+            result = await result.json()
+            console.warn(result);
+            document.getElementById('userData').innerHTML = result.map((user) =>
+                `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.localName}</td>
+                    <td>${user.type}</td>
+                    <td>${user.date}</td>
+                    <td>${user.countryCode}</td>
+                    </tr>`
+            ).join("");
+        }
+
+        callAPI()
+    </script>
+</head>
+
+<body>
+    <h1>API call in Javascript</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Local Name</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>CountryCode</th>
+            </tr>
+        </thead>
+        <tbody id="userData">
+
+        </tbody>
+    </table>
+</body>
+
+</html>

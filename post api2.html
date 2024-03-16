@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+
+        #user-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            background-color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="user-container">
+    <h1>User Information</h1>
+    <table id="user-table"></table>
+    <button onclick="getUserData()">Get User Data</button>
+</div>
+
+<script>
+    function getUserData() {
+        fetch('https://reqres.in/api/users')
+            .then(response => response.json())
+            .then(data => {
+                const userTable = document.getElementById('user-table');
+
+                // Clear the table content
+                userTable.innerHTML = '';
+
+                // Add table headers
+                userTable.innerHTML += `
+                    <tr><th>ID</th><th>Email</th><th>First Name</th><th>Last Name</th><th>Avatar</th></tr>
+                `;
+
+                // Add rows for each user
+                data.data.forEach(user => {
+                    userTable.innerHTML += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.email}</td>
+                            <td>${user.first_name}</td>
+                            <td>${user.last_name}</td>
+                            <td><img src="${user.avatar}" alt="Avatar" style="width: 50px; height: 50px;"></td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    }
+</script>
+
+</body>
+</html>

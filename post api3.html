@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+
+        #registration-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="registration-container">
+    <h1>User Registration</h1>
+    <button onclick="registerUser()">Register</button>
+</div>
+
+<script>
+    function registerUser() {
+        const rawData = {
+            email: 'eve.holt@reqres.in',
+            password: 'pistol',
+        };
+
+        fetch('https://reqres.in/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(rawData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Registration successful! Response: ' + JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error('Error registering user:', error);
+            alert('Error registering user. Please check the console for details.');
+        });
+    }
+</script>
+
+</body>
+</html>
